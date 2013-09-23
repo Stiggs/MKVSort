@@ -9,8 +9,8 @@ namespace MKVSort
 {
     public partial class MainForm : Form
     {
-        private List<FileInfo> fileList = new List<FileInfo>();
-        private string folderName, filter;
+        private string folderName;
+        private FileHelper fh = new FileHelper();
 
         public MainForm()
         {
@@ -40,38 +40,7 @@ namespace MKVSort
             }
         }
 
-        private void Search(string dir)
-        {
-            fileList.Clear();
-            lstFiles.Items.Clear();
-
-            try
-            {
-                if (chkFilter.Checked)
-                    filter = txtFilter.Text;
-                else
-                    filter = "*"; // Return all files.
-
-                foreach (string f in Directory.GetFiles(dir, filter, SearchOption.AllDirectories))
-                {
-                    fileList.Add(new FileInfo(f));
-                    lstFiles.Items.Add(Path.GetFileName(f));
-                }
-            }
-            catch (System.Exception exception)
-            {
-                if (exception is ArgumentException)
-                {
-                    MessageBox.Show(this, "Source is blank or directory doesn't exist!", "Error");
-                }
-                else
-                {
-                    Console.WriteLine(exception.Message);
-                }
-            }
-        }
-
-        private void MoveFiles(string sDir, string dDir)
+        private void btnGo_Click(object sender, EventArgs e)
         {
             if (!CheckList())
             {
@@ -79,39 +48,14 @@ namespace MKVSort
             }
             else
             {
-                int files = lstFiles.SelectedItems.Count;
-                string item = files > 1 ? "files" : "file";
-                string plural = files > 1 ? "these" : "this";
-
-                if (MessageBox.Show("Are you sure you want to move " + plural + " " + files.ToString() + " selected " + item + "?", "Confirm", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
-                {
-                    foreach (string f in lstFiles.SelectedItems)
-                    {
-                        
-                        if (chkShowPath.Checked)
-                            File.Move(f, Path.Combine(dDir, Path.GetFileName(f))); // If the show path box is checked, we need to strip the file name from the path.
-                        else
-                            File.Move(Path.Combine(sDir, f), Path.Combine(dDir, f)); // If the show path box is NOT checked, we don't need to strip the file name, but we do need to combine it with the source directory so that File.Move knows where it's being moved from!
-                    }
-
-                    MessageBox.Show(files.ToString() + " " + item + " successfully moved to " + dDir.ToString(), "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    return;
-                }
+                fh.MoveFiles(txtSource.Text, txtDest.Text, lstFiles, chkShowPath.Checked);
             }
-        }
-
-        private void btnGo_Click(object sender, EventArgs e)
-        {
-            MoveFiles(txtSource.Text, txtDest.Text);
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
             btnGo.Enabled = true;
-            Search(txtSource.Text);
+            fh.Search(txtSource.Text, lstFiles, txtFilter.Text, chkFilter.Checked);
         }
 
         private void btnSelAll_Click(object sender, EventArgs e)
@@ -154,14 +98,14 @@ namespace MKVSort
 
             if (chkShowPath.Checked)
             {
-                foreach (FileInfo f in fileList)
+                foreach (FileInfo f in fh.FileList)
                 {
                     lstFiles.Items.Add(Path.Combine(f.FilePath, f.FileName));
                 }
             }
             else
             {
-                foreach (FileInfo f in fileList)
+                foreach (FileInfo f in fh.FileList)
                 {
                     lstFiles.Items.Add(f.FileName);
                 }
