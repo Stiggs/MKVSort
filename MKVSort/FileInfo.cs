@@ -10,13 +10,11 @@ namespace MKVSort
     {
         public string FileName { get; set; }
         public string FilePath { get; set; }
-        public bool Selected { get; set; }
 
         public FileInfo(string file)
         {
             FileName = Path.GetFileName(file);
             FilePath = Path.GetDirectoryName(file);
-            Selected = false;
         }
     }
 }
