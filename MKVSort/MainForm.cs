@@ -111,5 +111,13 @@ namespace MKVSort
                 }
             }
         }
+
+        private void chkFilter_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkFilter.Checked)
+                txtFilter.Enabled = true;
+            else
+                txtFilter.Enabled = false;
+        }
     }
 }

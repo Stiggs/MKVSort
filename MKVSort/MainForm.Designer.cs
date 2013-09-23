@@ -124,6 +124,7 @@
             // 
             // txtFilter
             // 
+            this.txtFilter.Enabled = false;
             this.txtFilter.Location = new System.Drawing.Point(77, 138);
             this.txtFilter.Name = "txtFilter";
             this.txtFilter.Size = new System.Drawing.Size(166, 20);
@@ -164,11 +165,12 @@
             // chkFilter
             // 
             this.chkFilter.AutoSize = true;
-            this.chkFilter.Location = new System.Drawing.Point(255, 140);
+            this.chkFilter.Location = new System.Drawing.Point(255, 142);
             this.chkFilter.Name = "chkFilter";
             this.chkFilter.Size = new System.Drawing.Size(15, 14);
             this.chkFilter.TabIndex = 12;
             this.chkFilter.UseVisualStyleBackColor = true;
+            this.chkFilter.CheckedChanged += new System.EventHandler(this.chkFilter_CheckedChanged);
             // 
             // ttInfo
             // 
