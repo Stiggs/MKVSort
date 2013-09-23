@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using System.Windows.Forms;
@@ -8,6 +9,7 @@ namespace MKVSort
 {
     public partial class MainForm : Form
     {
+        private List<FileInfo> fileList = new List<FileInfo>();
         private string folderName, filter;
 
         public MainForm()
@@ -40,6 +42,7 @@ namespace MKVSort
 
         private void Search(string dir)
         {
+            fileList.Clear();
             lstFiles.Items.Clear();
 
             try
@@ -51,7 +54,8 @@ namespace MKVSort
 
                 foreach (string f in Directory.GetFiles(dir, filter, SearchOption.AllDirectories))
                 {
-                    lstFiles.Items.Add(f);
+                    fileList.Add(new FileInfo(f));
+                    lstFiles.Items.Add(Path.GetFileName(f));
                 }
             }
             catch (System.Exception exception)
@@ -83,7 +87,11 @@ namespace MKVSort
                 {
                     foreach (string f in lstFiles.SelectedItems)
                     {
-                        File.Move(f, Path.Combine(dDir, Path.GetFileName(f)));
+                        
+                        if (chkShowPath.Checked)
+                            File.Move(f, Path.Combine(dDir, Path.GetFileName(f))); // If the show path box is checked, we need to strip the file name from the path.
+                        else
+                            File.Move(Path.Combine(sDir, f), Path.Combine(dDir, f)); // If the show path box is NOT checked, we don't need to strip the file name, but we do need to combine it with the source directory so that File.Move knows where it's being moved from!
                     }
 
                     MessageBox.Show(files.ToString() + " " + item + " successfully moved to " + dDir.ToString(), "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -137,6 +145,26 @@ namespace MKVSort
             else
             {
                 return true;
+            }
+        }
+
+        private void chkShowPath_CheckedChanged(object sender, EventArgs e)
+        {
+            lstFiles.Items.Clear();
+
+            if (chkShowPath.Checked)
+            {
+                foreach (FileInfo f in fileList)
+                {
+                    lstFiles.Items.Add(Path.Combine(f.FilePath, f.FileName));
+                }
+            }
+            else
+            {
+                foreach (FileInfo f in fileList)
+                {
+                    lstFiles.Items.Add(f.FileName);
+                }
             }
         }
     }

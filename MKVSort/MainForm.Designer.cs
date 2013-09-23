@@ -46,6 +46,7 @@
             this.btnSelAll = new System.Windows.Forms.Button();
             this.btnSelNone = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
+            this.chkShowPath = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -131,7 +132,7 @@
             // btnGo
             // 
             this.btnGo.Enabled = false;
-            this.btnGo.Location = new System.Drawing.Point(12, 381);
+            this.btnGo.Location = new System.Drawing.Point(12, 404);
             this.btnGo.Name = "btnGo";
             this.btnGo.Size = new System.Drawing.Size(260, 31);
             this.btnGo.TabIndex = 9;
@@ -152,7 +153,7 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(12, 344);
+            this.btnSearch.Location = new System.Drawing.Point(12, 367);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(260, 31);
             this.btnSearch.TabIndex = 11;
@@ -177,7 +178,7 @@
             // 
             // btnSelAll
             // 
-            this.btnSelAll.Location = new System.Drawing.Point(12, 315);
+            this.btnSelAll.Location = new System.Drawing.Point(12, 338);
             this.btnSelAll.Name = "btnSelAll";
             this.btnSelAll.Size = new System.Drawing.Size(79, 23);
             this.btnSelAll.TabIndex = 13;
@@ -187,7 +188,7 @@
             // 
             // btnSelNone
             // 
-            this.btnSelNone.Location = new System.Drawing.Point(195, 315);
+            this.btnSelNone.Location = new System.Drawing.Point(195, 338);
             this.btnSelNone.Name = "btnSelNone";
             this.btnSelNone.Size = new System.Drawing.Size(77, 23);
             this.btnSelNone.TabIndex = 14;
@@ -197,7 +198,7 @@
             // 
             // btnClear
             // 
-            this.btnClear.Location = new System.Drawing.Point(97, 315);
+            this.btnClear.Location = new System.Drawing.Point(97, 338);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(92, 23);
             this.btnClear.TabIndex = 15;
@@ -205,11 +206,23 @@
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
+            // chkShowPath
+            // 
+            this.chkShowPath.AutoSize = true;
+            this.chkShowPath.Location = new System.Drawing.Point(16, 315);
+            this.chkShowPath.Name = "chkShowPath";
+            this.chkShowPath.Size = new System.Drawing.Size(97, 17);
+            this.chkShowPath.TabIndex = 16;
+            this.chkShowPath.Text = "Show Full Path";
+            this.chkShowPath.UseVisualStyleBackColor = true;
+            this.chkShowPath.CheckedChanged += new System.EventHandler(this.chkShowPath_CheckedChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 422);
+            this.ClientSize = new System.Drawing.Size(284, 443);
+            this.Controls.Add(this.chkShowPath);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnSelNone);
             this.Controls.Add(this.btnSelAll);
@@ -253,6 +266,7 @@
         private System.Windows.Forms.Button btnSelAll;
         private System.Windows.Forms.Button btnSelNone;
         private System.Windows.Forms.Button btnClear;
+        private System.Windows.Forms.CheckBox chkShowPath;
     }
 }
 
