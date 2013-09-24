@@ -10,6 +10,12 @@ namespace MKVSort
     class FileHelper
     {
         public List<FileInfo> FileList = new List<FileInfo>();
+        public ListBox lstFiles;
+
+        public FileHelper(ListBox lstfiles)
+        {
+            lstFiles = lstfiles;
+        }
 
         public void Search(string dir, ListBox lstFiles, string filter, bool filterChecked)
         {

@@ -10,11 +10,13 @@ namespace MKVSort
     public partial class MainForm : Form
     {
         private string folderName;
-        private FileHelper fh = new FileHelper();
+        private FileHelper fh;
 
         public MainForm()
         {
             InitializeComponent();
+
+            fh = new FileHelper(lstFiles);
         }
 
         private void btnSource_Click(object sender, EventArgs e)
@@ -48,41 +50,41 @@ namespace MKVSort
             }
             else
             {
-                fh.MoveFiles(txtSource.Text, txtDest.Text, lstFiles, chkShowPath.Checked);
+                fh.MoveFiles(txtSource.Text, txtDest.Text, fh.lstFiles, chkShowPath.Checked);
             }
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
             btnGo.Enabled = true;
-            fh.Search(txtSource.Text, lstFiles, txtFilter.Text, chkFilter.Checked);
+            fh.Search(txtSource.Text, fh.lstFiles, txtFilter.Text, chkFilter.Checked);
         }
 
         private void btnSelAll_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < lstFiles.Items.Count; i++)
+            for (int i = 0; i < fh.lstFiles.Items.Count; i++)
             {
-                lstFiles.SetSelected(i, true);
+                fh.lstFiles.SetSelected(i, true);
             }
         }
 
         private void btnSelNone_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < lstFiles.Items.Count; i++)
+            for (int i = 0; i < fh.lstFiles.Items.Count; i++)
             {
-                lstFiles.SetSelected(i, false);
+                fh.lstFiles.SetSelected(i, false);
             }
         }
 
         private void btnClear_Click(object sender, EventArgs e)
         {
-            lstFiles.Items.Clear();
+            fh.lstFiles.Items.Clear();
             btnGo.Enabled = false;
         }
 
         private bool CheckList()
         {
-            if (lstFiles.SelectedItems.Count <= 0)
+            if (fh.lstFiles.SelectedItems.Count <= 0)
             {
                 return false;
             }
@@ -94,20 +96,20 @@ namespace MKVSort
 
         private void chkShowPath_CheckedChanged(object sender, EventArgs e)
         {
-            lstFiles.Items.Clear();
+            fh.lstFiles.Items.Clear();
 
             if (chkShowPath.Checked)
             {
                 foreach (FileInfo f in fh.FileList)
                 {
-                    lstFiles.Items.Add(Path.Combine(f.FilePath, f.FileName));
+                    fh.lstFiles.Items.Add(Path.Combine(f.FilePath, f.FileName));
                 }
             }
             else
             {
                 foreach (FileInfo f in fh.FileList)
                 {
-                    lstFiles.Items.Add(f.FileName);
+                    fh.lstFiles.Items.Add(f.FileName);
                 }
             }
         }
