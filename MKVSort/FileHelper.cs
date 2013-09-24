@@ -17,7 +17,7 @@ namespace MKVSort
             lstFiles = lstfiles;
         }
 
-        public void Search(string dir, ListBox lstFiles, string filter, bool filterChecked)
+        public void Search(string dir, string filter, bool filterChecked)
         {
             FileList.Clear();
             lstFiles.Items.Clear();
@@ -46,7 +46,7 @@ namespace MKVSort
             }
         }
 
-        public void MoveFiles(string sDir, string dDir, ListBox lstFiles, bool showPath)
+        public void MoveFiles(string sDir, string dDir, bool showPath)
         {
             int files = lstFiles.SelectedItems.Count;
             string item = files > 1 ? "files" : "file";

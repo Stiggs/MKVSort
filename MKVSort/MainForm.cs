@@ -50,14 +50,14 @@ namespace MKVSort
             }
             else
             {
-                fh.MoveFiles(txtSource.Text, txtDest.Text, fh.lstFiles, chkShowPath.Checked);
+                fh.MoveFiles(txtSource.Text, txtDest.Text, chkShowPath.Checked);
             }
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
             btnGo.Enabled = true;
-            fh.Search(txtSource.Text, fh.lstFiles, txtFilter.Text, chkFilter.Checked);
+            fh.Search(txtSource.Text, txtFilter.Text, chkFilter.Checked);
         }
 
         private void btnSelAll_Click(object sender, EventArgs e)
