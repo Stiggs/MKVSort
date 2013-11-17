@@ -9,6 +9,7 @@ namespace MKVSort
 {
     class FileHelper
     {
+        // Comment to test source control.
         public List<FileInfo> FileList = new List<FileInfo>();
         public ListBox lstFiles;
 
